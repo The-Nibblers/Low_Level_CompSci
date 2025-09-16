@@ -1,41 +1,62 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
+#include "Profiler.hpp"
 
 #include <SFML/Graphics.hpp>
 
+
 int main() {
-    sf::RenderWindow window;
-    window.create(sf::VideoMode({ 1280, 720 }), "My window");
+    sf::RenderWindow window(sf::VideoMode({1280, 720}), "Profiler Only");
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
 
     if (!ImGui::SFML::Init(window))
         return -1;
 
+    Profiler profiler;
     sf::Clock deltaClock;
-    while (window.isOpen())
-    {
-        // Event Polling
-        while (const std::optional event = window.pollEvent())
-        {
-            ImGui::SFML::ProcessEvent(window, *event);
+    int iterations = 100000;
 
-            // "close requested" event: we close the window
+    while (window.isOpen()) {
+        // Your wrapper-style event loop
+        while (const std::optional event = window.pollEvent()) {
+            ImGui::SFML::ProcessEvent(window, *event);
             if (event->is<sf::Event::Closed>())
                 window.close();
         }
 
-        // Update
-        ImGui::SFML::Update(window, deltaClock.restart());
-        ImGui::ShowDemoWindow();
+        sf::Time deltaTime = deltaClock.restart();
+        ImGui::SFML::Update(window, deltaTime);
 
-        // Render
-        window.clear();
+        {
+            PROFILE(profiler, "Dummy Loop");
+            volatile int x = 0;
+            for (int i = 0; i < iterations; i++) {
+                x += i;
+            }
+        }
 
-        ImGui::SFML::Render(window);
+        {
+            PROFILE(profiler, "ImGui Interface");
 
-        window.display();
+            ImGui::Begin("Controls");
+            ImGui::SliderInt("Dummy Iterations", &iterations, 1000, 10000000);
+            if (ImGui::Button("Clear Profiler History")) {
+                profiler.clear();
+            }
+            ImGui::End();
+
+            profiler.renderImGui();
+        }
+
+        {
+            PROFILE(profiler, "Rendering");
+            window.clear(sf::Color::Black);
+            ImGui::SFML::Render(window);
+            window.display();
+        }
     }
 
-	return 0;
+    ImGui::SFML::Shutdown();
+    return 0;
 }
