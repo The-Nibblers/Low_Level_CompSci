@@ -1,62 +1,39 @@
-#include "imgui.h"
-#include "imgui-SFML.h"
-#include "Profiler.hpp"
-
-#include <SFML/Graphics.hpp>
+#include "iostream"
+#include <vector>
 
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode({1280, 720}), "Profiler Only");
-    window.setFramerateLimit(60);
-    window.setVerticalSyncEnabled(true);
+    // gebruik functies uit <algorithm> en <functional> om de volgende opdrachten uit te voeren:
 
-    if (!ImGui::SFML::Init(window))
-        return -1;
-
-    Profiler profiler;
-    sf::Clock deltaClock;
-    int iterations = 100000;
-
-    while (window.isOpen()) {
-        // Your wrapper-style event loop
-        while (const std::optional event = window.pollEvent()) {
-            ImGui::SFML::ProcessEvent(window, *event);
-            if (event->is<sf::Event::Closed>())
-                window.close();
-        }
-
-        sf::Time deltaTime = deltaClock.restart();
-        ImGui::SFML::Update(window, deltaTime);
-
-        {
-            PROFILE(profiler, "Dummy Loop");
-            volatile int x = 0;
-            for (int i = 0; i < iterations; i++) {
-                x += i;
-            }
-        }
-
-        {
-            PROFILE(profiler, "ImGui Interface");
-
-            ImGui::Begin("Controls");
-            ImGui::SliderInt("Dummy Iterations", &iterations, 1000, 10000000);
-            if (ImGui::Button("Clear Profiler History")) {
-                profiler.clear();
-            }
-            ImGui::End();
-
-            profiler.renderImGui();
-        }
-
-        {
-            PROFILE(profiler, "Rendering");
-            window.clear(sf::Color::Black);
-            ImGui::SFML::Render(window);
-            window.display();
-        }
+    // splits de vector in 2 nieuwe vectoren: 1 met alles wat alfabetisch voor 'purple' komt, 1 met alles er na
+    {
+        std::vector<std::string> colours{"red", "green", "white", "blue", "orange", "green", "orange", "black", "purple"};
     }
 
-    ImGui::SFML::Shutdown();
+    // maak alle elementen UPPERCASE
+    {
+        std::vector<std::string> colours{"red", "green", "white", "blue", "orange", "green", "orange", "black", "purple"};
+    }
+
+    // verwijder alle dubbele elementen
+    {
+        std::vector<std::string> colours{"red", "green", "white", "blue", "orange", "green", "orange", "black", "purple"};
+    }
+
+    // verwijder alle negatieve elementen
+    {
+        std::vector<double> numbers{10, 324422, 6, -23, 234.5, 654.1, 3.1242, -9.23, 635};
+    }
+
+    // bepaal voor alle elementen of ze even of oneven zijn
+    {
+        std::vector numbers{10, 324422, 6, -23, 234, 654, 3, -9, 635};
+    }
+
+    // bepaal de som, het gemiddelde, en het product van alle getallen te berekenen
+    {
+        std::vector<double> numbers{10, 324422.1, 6, -23, 234.5, 654.1, 3.1242, -9.23, 635};
+    }
+
     return 0;
 }
