@@ -36,7 +36,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f577ac4-28b2-46e7-9f02-ddf0f88a4855" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/_deps/freetype-src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/_deps/freetype-src/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/freetype-src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/freetype-src/CMakeLists.txt" afterDir="false" />
@@ -94,11 +93,6 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.OpdrAlgorithms">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ImGui-SFML" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="low-level_setup" TARGET_NAME="ImGui-SFML" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -163,7 +157,9 @@
       <workItem from="1757580387027" duration="1223000" />
       <workItem from="1757590572639" duration="2903000" />
       <workItem from="1758023758966" duration="3399000" />
-      <workItem from="1758092459990" duration="6734000" />
+      <workItem from="1758092459990" duration="11367000" />
+      <workItem from="1758109729466" duration="1343000" />
+      <workItem from="1758114025327" duration="3836000" />
     </task>
     <servers />
   </component>
