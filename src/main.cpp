@@ -20,15 +20,15 @@ int main() {
     {
         std::vector<std::string> colours{"red", "green", "white", "blue", "orange", "green", "orange", "black", "purple"};
         std::sort(colours.begin(), colours.end());
-        auto split = std::find(colours.begin(), colours.end(), "purple");
-        int splitIndex;
-        if (split != colours.end()) {
-            splitIndex = std::distance(colours.begin(), split);
-        }
-        std::vector<std::string> colours1{colours.begin(), colours.begin() + splitIndex};
-        std::vector<std::string> colours2{colours.begin() + splitIndex, colours.end()};
-        //printVector(colours1);
-        //printVector(colours2);
+
+        std::vector<std::string> colours1;
+        std::vector<std::string> colours2;
+
+        std::copy_if(colours.begin(), colours.end(), std::back_inserter(colours1), [] (std::string color) { return color < "purple";});
+        std::copy_if(colours.begin(), colours.end(), std::back_inserter(colours2), [] (std::string color) { return color > "purple";});
+
+        printVector(colours1);
+        printVector(colours2);
     }
 
     // maak alle elementen UPPERCASE
@@ -77,9 +77,9 @@ int main() {
         double sum = std::accumulate(numbers.begin(), numbers.end(), 0.0, std::plus());
         double avarage = sum / numbers.size();
         double product = std::accumulate(numbers.begin(), numbers.end(), 1.0, std::multiplies<>());
-        std::cout << "Sum = " << sum << std::endl;
-        std::cout << "Avarage = " << avarage << std::endl;
-        std::cout << "Product = " << product << std::endl;
+        //std::cout << "Sum = " << sum << std::endl;
+        //std::cout << "Avarage = " << avarage << std::endl;
+        //std::cout << "Product = " << product << std::endl;
     }
 
     return 0;
