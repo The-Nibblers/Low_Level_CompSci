@@ -1,6 +1,7 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "Profiler.hpp"
+#include "Balls.hpp"
 
 #include <SFML/Graphics.hpp>
 

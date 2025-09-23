@@ -31,7 +31,7 @@ private:
     std::uniform_real_distribution<float> radiusDist;
 
 public:
-    BallGame::BallGame() {
+    BallGame() {
         gen = std::mt19937(rd());
         posDist = std::uniform_real_distribution<float>(5.0f, 795.0f);
         velDist = std::uniform_real_distribution<float>(-200.0f, 200.0f);
