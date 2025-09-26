@@ -11,6 +11,8 @@ int main() {
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
 
+    BallGame * game = new BallGame();
+
     if (!ImGui::SFML::Init(window))
         return -1;
 
@@ -18,8 +20,9 @@ int main() {
     sf::Clock deltaClock;
     int iterations = 100000;
 
+    sf::Vector2u windowSize = window.getSize();
+
     while (window.isOpen()) {
-        // Your wrapper-style event loop
         while (const std::optional event = window.pollEvent()) {
             ImGui::SFML::ProcessEvent(window, *event);
             if (event->is<sf::Event::Closed>())
@@ -27,15 +30,11 @@ int main() {
         }
 
         sf::Time deltaTime = deltaClock.restart();
+        float deltatime = deltaTime.asSeconds();
         ImGui::SFML::Update(window, deltaTime);
 
-        {
-            PROFILE(profiler, "Dummy Loop");
-            volatile int x = 0;
-            for (int i = 0; i < iterations; i++) {
-                x += i;
-            }
-        }
+        game->updateBalls( windowSize , deltatime);
+        game->drawBalls(window);
 
         {
             PROFILE(profiler, "ImGui Interface");
