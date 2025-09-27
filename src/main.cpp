@@ -34,7 +34,6 @@ int main() {
         ImGui::SFML::Update(window, deltaTime);
 
         game->updateBalls( windowSize , deltatime);
-        game->drawBalls(window);
 
         {
             PROFILE(profiler, "ImGui Interface");
@@ -53,6 +52,7 @@ int main() {
             PROFILE(profiler, "Rendering");
             window.clear(sf::Color::Black);
             ImGui::SFML::Render(window);
+            game->drawBalls(window);
             window.display();
         }
     }
