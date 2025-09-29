@@ -36,9 +36,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f577ac4-28b2-46e7-9f02-ddf0f88a4855" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/SpatialHash.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SpatialHash.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/_deps/freetype-src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/_deps/freetype-src/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/freetype-src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/freetype-src/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,6 +108,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="freetype" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="low-level_setup" TARGET_NAME="freetype" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -167,7 +175,9 @@
       <workItem from="1758705569429" duration="1557000" />
       <workItem from="1758711437577" duration="324000" />
       <workItem from="1758874158781" duration="1064000" />
-      <workItem from="1758975353779" duration="1891000" />
+      <workItem from="1758975353779" duration="3157000" />
+      <workItem from="1759055163026" duration="1821000" />
+      <workItem from="1759134003108" duration="7510000" />
     </task>
     <servers />
   </component>

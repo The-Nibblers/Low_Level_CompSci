@@ -1,6 +1,8 @@
 add_executable(low-level_setup
  main.cpp
         Balls.hpp
+        ../SpatialHash.cpp
+        ../SpatialHash.h
 )
 
 target_link_libraries(low-level_setup

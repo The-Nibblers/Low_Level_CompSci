@@ -33,7 +33,10 @@ int main() {
         float deltatime = deltaTime.asSeconds();
         ImGui::SFML::Update(window, deltaTime);
 
+        float fps = 1.0f / deltatime;
+
         {
+            ImGui::Begin("FPS Counter"); ImGui::Text("FPS: %.1f", fps); ImGui::End();
             //imgui show profiler
             ImGui::Begin("Controls");
             if (ImGui::Button("Clear Profiler History")) {
