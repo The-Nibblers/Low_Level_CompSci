@@ -4,9 +4,10 @@
 
 #include "SpatialHash.h"
 
+#include <cmath>
 #include <iostream>
 
-SpatialHash::SpatialHash(sf::Vector2i window, float CellSize){
+SpatialHash::SpatialHash(sf::Vector2u window, float CellSize){
     windowSize = window;
     cellSize = CellSize;
 }
@@ -14,8 +15,8 @@ SpatialHash::SpatialHash(sf::Vector2i window, float CellSize){
 void SpatialHash::insertObject(Ball* ball) {
     sf::Vector2f pos = ball->shape.getPosition();
 
-    auto cell_x = pos.x / cellSize;
-    auto cell_y = pos.y / cellSize;
+    int cell_x = pos.x / cellSize;
+    int cell_y = pos.y / cellSize;
 
     std::pair<int, int> key(cell_x, cell_y);
     grid[key].push_back(ball);
@@ -25,6 +26,6 @@ void SpatialHash::insertObject(Ball* ball) {
 
 }
 
-void SpatialHash::removeObject(Ball* ball) {
-
+void SpatialHash::clearHash() {
+    grid.clear();
 }

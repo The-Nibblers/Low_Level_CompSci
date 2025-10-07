@@ -11,7 +11,9 @@ int main() {
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
 
-    BallGame * game = new BallGame();
+    //windowsize doesnt update.
+    sf::Vector2u windowSize = window.getSize();
+    BallGame * game = new BallGame(windowSize);
 
     if (!ImGui::SFML::Init(window))
         return -1;
@@ -26,8 +28,6 @@ int main() {
             if (event->is<sf::Event::Closed>())
                 window.close();
         }
-
-        sf::Vector2u windowSize = window.getSize();
 
         sf::Time deltaTime = deltaClock.restart();
         float deltatime = deltaTime.asSeconds();
@@ -46,7 +46,7 @@ int main() {
 
         {
             PROFILE(profiler, "Physics update");
-            game->updateBalls( windowSize , deltatime);
+            game->updateBalls(deltatime);
         }
 
         {

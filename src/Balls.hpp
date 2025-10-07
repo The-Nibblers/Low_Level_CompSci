@@ -12,7 +12,7 @@
 
 class BallGame {
 private:
-    //SpatialHash spatialHash;
+    SpatialHash spatialHash;
     // Create balls
     std::vector<Ball> balls;
     std::random_device rd;
@@ -21,30 +21,36 @@ private:
     std::uniform_real_distribution<float> velDist;
     std::uniform_int_distribution<int> colorDist;
     std::uniform_real_distribution<float> radiusDist;
+    sf::Vector2u windowSize;
 
 public:
-    BallGame() {
+    BallGame(sf::Vector2u windowSize) : spatialHash(windowSize,50.0f) {
         gen = std::mt19937(rd());
         posDist = std::uniform_real_distribution<float>(5.0f, 795.0f);
         velDist = std::uniform_real_distribution<float>(-200.0f, 200.0f);
         colorDist = std::uniform_int_distribution<int>(0, 255);
         radiusDist = std::uniform_real_distribution<float>(2.5f, 2.5f);
+        this->windowSize = windowSize;
 
         // Generate random balls
         for (int i = 0; i < 2500; ++i) {
             sf::Color randomColor(colorDist(gen), colorDist(gen), colorDist(gen));
             balls.emplace_back(
-                posDist(gen), posDist(gen),  // position
-                radiusDist(gen),             // radius
-                randomColor,                 // color
-                velDist(gen), velDist(gen)   // velocity
+                posDist(gen), posDist(gen), // position
+                radiusDist(gen), // radius
+                randomColor, // color
+                velDist(gen), velDist(gen) // velocity
             );
         }
     }
 
-    void updateBalls(const sf::Vector2u& windowSize, float deltaTime) {
+    void updateBalls(float deltaTime) {
+
+        spatialHash.clearHash();
+
         // Update positions
         for (auto& ball : balls) {
+            spatialHash.insertObject(&ball);
             ball.shape.move(ball.velocity * deltaTime);
         }
 

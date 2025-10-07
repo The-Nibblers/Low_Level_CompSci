@@ -23,14 +23,14 @@ struct PairHash {
 class SpatialHash {
 
 public:
-    SpatialHash(sf::Vector2i window, float CellSize);
+    SpatialHash(sf::Vector2u window, float CellSize);
 
     void insertObject(Ball* ball);
-    void removeObject(Ball* ball);
+    void clearHash();
 
 private:
     std::unordered_map<std::pair<int,int>, std::vector<Ball*>, PairHash> grid;
-    sf::Vector2i windowSize;
+    sf::Vector2u windowSize;
     float cellSize;
 };
 
