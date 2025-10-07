@@ -9,7 +9,7 @@
 #include "imgui-SFML.h"
 
 #include <SFML/Graphics.hpp>
-#include "balls.hpp"
+#include "Ball.hpp"
 
 struct PairHash {
     template <class T1, class T2>
