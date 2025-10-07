@@ -11,7 +11,6 @@ int main() {
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
 
-    //windowsize doesnt update.
     sf::Vector2u windowSize = window.getSize();
     BallGame * game = new BallGame(windowSize);
 

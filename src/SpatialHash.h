@@ -1,8 +1,4 @@
-﻿//
-// Created by jenso on 29/09/2025.
-//
-
-#ifndef LOW_LEVEL_SETUP_SPATIALHASH_H
+﻿#ifndef LOW_LEVEL_SETUP_SPATIALHASH_H
 #define LOW_LEVEL_SETUP_SPATIALHASH_H
 #include <unordered_map>
 
@@ -27,12 +23,16 @@ public:
 
     void insertObject(Ball* ball);
     void clearHash();
+    void collisionHandeling();
+    void wallCollisionHandeling();
 
 private:
     std::unordered_map<std::pair<int,int>, std::vector<Ball*>, PairHash> grid;
     sf::Vector2u windowSize;
     float cellSize;
+
+    void handleCollision(Ball* a, Ball* b);
 };
 
 
-#endif //LOW_LEVEL_SETUP_SPATIALHASH_H
+#endif

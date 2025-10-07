@@ -48,85 +48,16 @@ public:
 
         spatialHash.clearHash();
 
-        // Update positions
         for (auto& ball : balls) {
-            spatialHash.insertObject(&ball);
             ball.shape.move(ball.velocity * deltaTime);
+            spatialHash.insertObject(&ball);
         }
 
-        // Handle ball-to-ball collisions
-        for (size_t i = 0; i < balls.size(); ++i) {
-            for (size_t j = i + 1; j < balls.size(); ++j) {
-                Ball& ball1 = balls[i];
-                Ball& ball2 = balls[j];
+        spatialHash.collisionHandeling();
+        spatialHash.wallCollisionHandeling();
 
-                sf::Vector2f pos1 = ball1.shape.getPosition();
-                sf::Vector2f pos2 = ball2.shape.getPosition();
-                float radius1 = ball1.shape.getRadius();
-                float radius2 = ball2.shape.getRadius();
 
-                // Calculate distance between centers
-                sf::Vector2f delta = pos2 - pos1;
-                float distance = std::sqrt(delta.x * delta.x + delta.y * delta.y);
-                float minDistance = radius1 + radius2;
 
-                if (distance < minDistance && distance > 0) {
-                    // Normalize collision vector
-                    sf::Vector2f normal = delta / distance;
-
-                    // Separate balls to prevent overlap
-                    float overlap = minDistance - distance;
-                    sf::Vector2f separation = normal * (overlap * 0.5f);
-                    ball1.shape.setPosition(pos1 - separation);
-                    ball2.shape.setPosition(pos2 + separation);
-
-                    // Calculate relative velocity
-                    sf::Vector2f relativeVel = ball2.velocity - ball1.velocity;
-                    float velAlongNormal = relativeVel.x * normal.x + relativeVel.y * normal.y;
-
-                    // Don't resolve if velocities are separating
-                    if (velAlongNormal > 0) continue;
-
-                    // Apply collision response (elastic collision)
-                    float restitution = 0.0f; // Bounce factor (0 = no bounce, 1 = perfect bounce)
-                    float impulse = -(1 + restitution) * velAlongNormal;
-
-                    // Assume equal mass for simplicity
-                    sf::Vector2f impulseVector = impulse * normal;
-                    ball1.velocity -= impulseVector;
-                    ball2.velocity += impulseVector;
-                }
-            }
-        }
-
-        // Handle wall collisions
-        for (auto& ball : balls) {
-            sf::Vector2f pos = ball.shape.getPosition();
-            float radius = ball.shape.getRadius();
-
-            // Bounce off walls
-            if (pos.x - radius <= 0 || pos.x + radius >= windowSize.x) {
-                ball.velocity.x = -ball.velocity.x;
-                // Clamp position to prevent sticking
-                if (pos.x - radius <= 0) {
-                    ball.shape.setPosition(sf::Vector2f(radius, pos.y));
-                }
-                else {
-                    ball.shape.setPosition(sf::Vector2f(windowSize.x - radius, pos.y));
-                }
-            }
-
-            if (pos.y - radius <= 0 || pos.y + radius >= windowSize.y) {
-                ball.velocity.y = -ball.velocity.y;
-                // Clamp position to prevent sticking
-                if (pos.y - radius <= 0) {
-                    ball.shape.setPosition(sf::Vector2f(pos.x, radius));
-                }
-                else {
-                    ball.shape.setPosition(sf::Vector2f(pos.x, windowSize.y - radius));
-                }
-            }
-        }
     }
 
     void drawBalls( sf::RenderWindow& window ) const

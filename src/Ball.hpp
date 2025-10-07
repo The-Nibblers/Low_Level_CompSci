@@ -9,7 +9,7 @@ struct Ball {
         shape.setRadius(radius);
         shape.setPosition(sf::Vector2f(x, y));
         shape.setFillColor(color);
-        shape.setOrigin(sf::Vector2f(radius, radius)); // Center origin
+        shape.setOrigin(sf::Vector2f(radius, radius));
         velocity = sf::Vector2f(vx, vy);
     }
 };
