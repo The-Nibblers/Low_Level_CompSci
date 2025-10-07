@@ -4,6 +4,7 @@
 #include <random>
 #include <cmath>
 
+
 #include <SFML/Graphics.hpp>
 
 struct Ball {

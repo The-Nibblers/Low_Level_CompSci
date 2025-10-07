@@ -4,7 +4,6 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/build/_deps/freetype-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/build/_deps/freetype-src/subprojects/dlg" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/build/_deps/imgui-sfml-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/_deps/freetype-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/_deps/freetype-src/subprojects/dlg" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/_deps/imgui-sfml-src" vcs="Git" />
