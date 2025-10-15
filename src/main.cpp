@@ -6,7 +6,7 @@
 
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode({1280, 720}), "Profiler Only");
+    sf::RenderWindow window(sf::VideoMode({800, 800}), "Profiler Only");
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
 
@@ -18,7 +18,6 @@ int main() {
     int iterations = 100000;
 
     while (window.isOpen()) {
-        // Your wrapper-style event loop
         while (const std::optional event = window.pollEvent()) {
             ImGui::SFML::ProcessEvent(window, *event);
             if (event->is<sf::Event::Closed>())
@@ -26,33 +25,31 @@ int main() {
         }
 
         sf::Time deltaTime = deltaClock.restart();
+        //float deltatime = deltaTime.asSeconds();
         ImGui::SFML::Update(window, deltaTime);
 
         {
-            PROFILE(profiler, "Dummy Loop");
-            volatile int x = 0;
-            for (int i = 0; i < iterations; i++) {
-                x += i;
-            }
-        }
-
-        {
-            PROFILE(profiler, "ImGui Interface");
-
+            //imgui show profiler
             ImGui::Begin("Controls");
-            ImGui::SliderInt("Dummy Iterations", &iterations, 1000, 10000000);
             if (ImGui::Button("Clear Profiler History")) {
                 profiler.clear();
             }
             ImGui::End();
+        }
 
-            profiler.renderImGui();
+        profiler.renderImGui();
+
+        {
+            PROFILE(profiler, "update");
+            //frame by frame update function
         }
 
         {
             PROFILE(profiler, "Rendering");
             window.clear(sf::Color::Black);
             ImGui::SFML::Render(window);
+            //rendering function
+
             window.display();
         }
     }
