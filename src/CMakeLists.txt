@@ -1,5 +1,9 @@
 add_executable(low-level_setup
  main.cpp
+        Grid.cpp
+        Grid.h
+        GameRules.cpp
+        GameRules.h
 )
 
 target_link_libraries(low-level_setup
