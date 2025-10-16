@@ -5,6 +5,8 @@
 #ifndef LOW_LEVEL_SETUP_GRID_H
 #define LOW_LEVEL_SETUP_GRID_H
 #include <functional>
+#include <algorithm>
+#include <ranges>
 
 struct PairHash {
     size_t operator()(const std::pair<int,int>& p) const noexcept {
@@ -28,8 +30,8 @@ private:
     std::unordered_map<std::pair<int,int>, Cell, PairHash> grid;
     int gridWidth= 30;
     int gridHeigth = 30;
-    bool cellwidth;
-    bool cellHeight;
+    float cellwidth;
+    float cellHeight;
     int windowWidth;
     int windowHeight;
 

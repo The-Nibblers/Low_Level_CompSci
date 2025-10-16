@@ -2,6 +2,7 @@
 #include "imgui-SFML.h"
 #include "Profiler.hpp"
 
+#include "Grid.h"
 #include <SFML/Graphics.hpp>
 
 
@@ -9,6 +10,8 @@ int main() {
     sf::RenderWindow window(sf::VideoMode({800, 800}), "Profiler Only");
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
+    Grid grid = Grid(800,800);
+    grid.gridSetup();
 
     if (!ImGui::SFML::Init(window))
         return -1;
