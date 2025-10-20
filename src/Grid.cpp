@@ -5,6 +5,7 @@
 #include "Grid.h"
 
 #include <iostream>
+#include <random>
 
 Grid::Grid(int windowWidth, int windowHeight) {
     this->windowWidth = windowWidth;
@@ -12,34 +13,40 @@ Grid::Grid(int windowWidth, int windowHeight) {
 }
 
 bool Grid::get(std::pair<int,int> coords) {
-
+    auto it = grid.find(coords);
+    if (it != grid.end()) {
+        return it->second.alive;
+    }
     return false;
 }
 
 void Grid::set(std::pair<int,int> coords, bool alive) {
-
+    grid[coords].alive = alive;
 }
 
 void Grid::clear() {
-
+    for (auto& kv : grid) {
+        kv.second.alive = false;
+    }
 }
 
 void Grid::gridSetup() {
-   cellHeight = windowHeight / gridHeigth;
-    cellwidth = windowWidth / gridWidth;
+    cellHeight = windowHeight / gridHeigth;
+    cellwidth  = windowWidth  / gridWidth;
 
-    int w = gridWidth + 1;
-    int h = gridHeigth + 1;
+    int w = gridWidth;
+    int h = gridHeigth;
 
-    std::ranges::for_each(std::views::iota(0, w * h), [&](int i) {
+    grid.clear();
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::bernoulli_distribution randomAlive(0.3);
+
+    std::ranges::for_each(std::ranges::views::iota(0, w * h), [&](int i) {
         int x = i % w;
         int y = i / w;
-        grid.insert({{x,y}, Cell{true}} );
+        bool alive = randomAlive(gen);
+        grid.insert({{x, y}, Cell{alive}});
     });
-
-    for (const auto& kv : grid) {
-        const auto& key = kv.first;
-        const auto& cell = kv.second;
-        std::cout << key.first << " " << key.second << " " << cell.alive << "\n";
-    }
 }

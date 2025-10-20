@@ -1,24 +1,37 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "Profiler.hpp"
-
-#include "Grid.h"
 #include <SFML/Graphics.hpp>
 
+#include "Grid.h"
+#include "GameRules.h"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode({800, 800}), "Profiler Only");
+    sf::RenderWindow window(sf::VideoMode({800, 800}), "Conway's Game of Life");
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
-    Grid grid = Grid(800,800);
-    grid.gridSetup();
 
     if (!ImGui::SFML::Init(window))
         return -1;
 
     Profiler profiler;
     sf::Clock deltaClock;
-    int iterations = 100000;
+
+    //grid setup
+    int gridWidth = 30;
+    int gridHeight = 30;
+    Grid grid(window.getSize().x, window.getSize().y);
+    grid.gridWidth = gridWidth;
+    grid.gridHeigth = gridHeight;
+
+    grid.gridSetup();
+
+    GameRules gameRules(grid);
+
+    bool isRunning = false;
+    float updateDelay = 0.2f;
+    sf::Clock updateClock;
+
 
     while (window.isOpen()) {
         while (const std::optional event = window.pollEvent()) {
@@ -28,7 +41,6 @@ int main() {
         }
 
         sf::Time deltaTime = deltaClock.restart();
-        //float deltatime = deltaTime.asSeconds();
         ImGui::SFML::Update(window, deltaTime);
 
         {
@@ -44,14 +56,16 @@ int main() {
 
         {
             PROFILE(profiler, "update");
-            //frame by frame update function
+                gameRules.update();
+                updateClock.restart();
         }
 
         {
             PROFILE(profiler, "Rendering");
             window.clear(sf::Color::Black);
+
+            gameRules.render(window);
             ImGui::SFML::Render(window);
-            //rendering function
 
             window.display();
         }

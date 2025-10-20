@@ -26,14 +26,14 @@ public:
     void set(std::pair<int,int> coords, bool alive);
     void clear();
     void gridSetup();
-private:
-    std::unordered_map<std::pair<int,int>, Cell, PairHash> grid;
     int gridWidth= 30;
     int gridHeigth = 30;
     float cellwidth;
     float cellHeight;
     int windowWidth;
     int windowHeight;
+    std::unordered_map<std::pair<int,int>, Cell, PairHash> grid;
+
 
 };
 
