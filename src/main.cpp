@@ -4,11 +4,15 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Particles.hpp"
+
 
 int main() {
     sf::RenderWindow window(sf::VideoMode({800, 800}), "Profiler Only");
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
+
+    ParticleSystem Ps = new ParticleSystem();
 
     if (!ImGui::SFML::Init(window))
         return -1;
