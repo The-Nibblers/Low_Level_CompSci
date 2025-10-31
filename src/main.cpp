@@ -1,59 +1,57 @@
+#include <SFML/Graphics.hpp>
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "Profiler.hpp"
-
-#include <SFML/Graphics.hpp>
-
 #include "Particles.hpp"
 
-
 int main() {
-    sf::RenderWindow window(sf::VideoMode({800, 800}), "Profiler Only");
+    sf::RenderWindow window(sf::VideoMode({800, 800}), "Particle System Test");
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
 
-    ParticleSystem Ps = new ParticleSystem();
-
-    if (!ImGui::SFML::Init(window))
+    if (!ImGui::SFML::Init(window)) {
         return -1;
+    }
 
+    ParticleSystem ps(&window);
     Profiler profiler;
     sf::Clock deltaClock;
-    int iterations = 100000;
+
+    sf::Vector2f spawnPos(400.f, 400.f);
 
     while (window.isOpen()) {
-        while (const std::optional event = window.pollEvent()) {
-            ImGui::SFML::ProcessEvent(window, *event);
-            if (event->is<sf::Event::Closed>())
+        while (std::optional<sf::Event> event = window.pollEvent()) {
+            ImGui::SFML::ProcessEvent(window, *event); // note: pass window + dereferenced event
+            if (event->is<sf::Event::Closed>()) {
                 window.close();
+            }
         }
 
         sf::Time deltaTime = deltaClock.restart();
-        //float deltatime = deltaTime.asSeconds();
+        float dt = deltaTime.asSeconds();
         ImGui::SFML::Update(window, deltaTime);
 
-        {
-            //imgui show profiler
-            ImGui::Begin("Controls");
-            if (ImGui::Button("Clear Profiler History")) {
-                profiler.clear();
-            }
-            ImGui::End();
+        ImGui::Begin("Particle Controls");
+        if (ImGui::Button("Spawn 50 Particles")) {
+            ps.spawnParticles(50, spawnPos);
         }
+        ImGui::Text("Particle Count: %zu", ps.getParticleCount());
+        ImGui::End();
 
         profiler.renderImGui();
 
+        // ---- Update Particles ----
         {
             PROFILE(profiler, "update");
-            //frame by frame update function
+            ps.update(dt);
         }
 
+        // ---- Render ----
         {
-            PROFILE(profiler, "Rendering");
+            PROFILE(profiler, "render");
             window.clear(sf::Color::Black);
+            ps.render();
             ImGui::SFML::Render(window);
-            //rendering function
-
             window.display();
         }
     }
