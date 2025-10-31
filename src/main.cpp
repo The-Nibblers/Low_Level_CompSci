@@ -33,7 +33,7 @@ int main() {
 
         ImGui::Begin("Particle Controls");
         if (ImGui::Button("Spawn 50 Particles")) {
-            ps.spawnParticles(50, spawnPos);
+            ps.spawnParticles(5000, spawnPos);
         }
         ImGui::Text("Particle Count: %zu", ps.getParticleCount());
         ImGui::End();
